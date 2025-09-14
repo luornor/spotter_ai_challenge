@@ -21,4 +21,5 @@ uritemplate==4.2.0
 urllib3==2.5.0
 gunicorn==21.2.0
 whitenoise==6.7.0
+polyline==2.0.2
 
