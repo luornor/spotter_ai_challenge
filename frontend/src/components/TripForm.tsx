@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
-import "../styles/form.css";
+
 
 type FormData = {
   current_location: string;

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
+import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
