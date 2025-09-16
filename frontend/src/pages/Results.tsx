@@ -24,7 +24,9 @@ export default function Results() {
         {plan.logs.map((day: any, idx: number) => (
           <div key={idx}>
             <h3>Day {idx + 1}</h3>
-            <LogCanvas blocks={day} />
+            <div className="log-canvas">
+              <LogCanvas blocks={day} />
+            </div>
           </div>
         ))}
       </div>
@@ -32,14 +34,3 @@ export default function Results() {
   );
 }
 
-/*
-curl -X POST http://localhost:8000/api/trip/plan/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "current_location":"Dallas, TX",
-    "pickup_location":"Oklahoma City, OK",
-    "dropoff_location":"Denver, CO",
-    "current_cycle_used_hours": 12
-  }' | jq .
-
-*/

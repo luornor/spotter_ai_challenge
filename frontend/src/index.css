@@ -1,11 +1,29 @@
+/* =========================
+   Global + Theme
+   ========================= */
 :root {
+  --bg-dark: #0a0f15;
+  --text-dark: #e6edf3;
+  --muted-dark: #9aa6b2;
+  --panel-dark: rgba(36, 39, 45, 0.92);
+  --panel-border: rgba(255,255,255,.08);
+  --accent-1: #7aa2f7;  /* blue */
+  --accent-2: #9f7afa;  /* purple */
+  --success: #23c552;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow-1: 0 18px 50px rgba(0,0,0,.35);
+  --shadow-2: 0 8px 22px rgba(122,162,247,.35);
+  --ring: 0 0 0 3px rgba(122,162,247,.2);
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.92);
-  background-color: #0a0f15;
+  background-color: var(--bg-dark);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,83 +31,171 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #7aa2f7;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #9f7afa;
-}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 
-  /* 🎨 Layered gradients for depth (dark) */
+  /* Layered gradients (dark) */
   background:
     radial-gradient(1100px 700px at 20% -10%, #1e2633 0%, #0b1118 60%, #0a0f15 100%) fixed,
     radial-gradient(800px 500px at 100% 0%, rgba(122,162,247,.18), transparent 60%) fixed,
     radial-gradient(900px 600px at 0% 100%, rgba(159,122,250,.14), transparent 60%) fixed,
-    linear-gradient(#0a0f15, #0a0f15) fixed;
-
-  color: #e6edf3;
+    linear-gradient(var(--bg-dark), var(--bg-dark)) fixed;
+  color: var(--text-dark);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  margin: 0 0 0.25em 0;
+/* =========================
+   Layout
+   ========================= */
+#root { width: 100%; }
+.container {
+  max-width: 980px;
+  margin: 48px auto;
+  padding: 0 20px;
+}
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+.page-title {
+  margin: 0 0 18px 0;
+  font-size: clamp(2rem, 2.6vw, 2.6rem);
+  letter-spacing: .2px;
 }
 
+/* =========================
+   Links
+   ========================= */
+a { color: var(--accent-1); text-decoration: none; font-weight: 600; }
+a:hover { color: var(--accent-2); }
+
+.nav-link {
+  color: #cdd6f4;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+}
+.nav-link:hover { color: #fff; border-color: rgba(255,255,255,.28); }
+
+/* =========================
+   Buttons
+   ========================= */
 button {
-  border-radius: 10px;
+  appearance: none;
   border: 1px solid rgba(255,255,255,0.1);
-  padding: 0.7em 1.2em;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
   font-size: 1rem;
   font-weight: 600;
   font-family: inherit;
-  background: linear-gradient(135deg, #7aa2f7 0%, #9f7afa 100%);
-  color: #fff;
   cursor: pointer;
-  transition: transform .05s ease, box-shadow .2s ease, filter .15s ease, border-color .25s ease;
-  box-shadow: 0 8px 22px rgba(122,162,247,.35);
+  transition: transform .05s ease, box-shadow .2s ease, filter .12s ease, border-color .25s ease;
 }
-button:hover {
-  border-color: rgba(255,255,255,0.2);
-  filter: brightness(1.05);
+.btn { color: white; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+  box-shadow: var(--shadow-2);
 }
-button:active {
-  transform: translateY(1px);
+.btn-ghost {
+  background: transparent;
+  color: #cdd6f4;
 }
-button:disabled {
-  filter: grayscale(.4) brightness(.85);
-  cursor: not-allowed;
-  box-shadow: none;
+button:hover { border-color: rgba(255,255,255,0.2); filter: brightness(1.05); }
+button:active { transform: translateY(1px); }
+button:disabled { filter: grayscale(.4) brightness(.85); cursor: not-allowed; box-shadow: none; }
+
+/* =========================
+   Card + Form
+   ========================= */
+.form-card {
+  background: var(--panel-dark);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-1), inset 0 1px 0 rgba(255,255,255,.04);
+  max-width: 820px;
+}
+.form-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+.label {
+  font-size: 0.86rem;
+  color: #cdd6f4;
+  letter-spacing: .02em;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.input-row { position: relative; }
+.input-row svg {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: .85;
 }
 
-/* Containers/pages can use this to constrain width neatly */
-#root, .page {
+.input {
   width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px;
+  padding: 12px 14px 12px 40px;
+  color: var(--text-dark);
+  background: #0f141b;
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: box-shadow .18s ease, border-color .2s ease, transform .04s ease;
+}
+.input::placeholder { color: #8b98a5; }
+.input:focus { border-color: var(--accent-1); box-shadow: var(--ring); }
+
+.hint   { font-size: .82rem; color: var(--muted-dark); margin-top: 2px; }
+.error  { font-size: .82rem; color: #ff7b7b; margin-top: 4px; }
+.actions { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+
+/* =========================
+   Results + Map + Canvas
+   ========================= */
+.results-meta {
+  margin: 12px 0 8px;
+  font-size: .98rem;
+  color: var(--muted-dark);
+}
+.results-grid { display: grid; gap: 18px; }
+
+.leaflet-container { border-radius: var(--radius); border: 1px solid rgba(255,255,255,.08); }
+
+/* Canvas wrapper (LogCanvas already sets inline styles; these are safe defaults) */
+.log-canvas {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius-sm);
+  background: #fff;
 }
 
-/* Light mode overrides */
+/* =========================
+   Utilities
+   ========================= */
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+.muted { color: var(--muted-dark); }
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 720px) {
+  .container { margin: 28px auto; padding: 0 16px; }
+  .form-card { padding: 20px; border-radius: 12px; }
+  .actions { flex-direction: column; align-items: stretch; }
+  .btn-ghost { text-align: center; }
+}
+
+/* =========================
+   Light mode overrides
+   ========================= */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-  a {
-    color: #5468ff;
-  }
-  a:hover {
-    color: #747bff;
   }
   body {
     background:
@@ -99,10 +205,20 @@ button:disabled {
       linear-gradient(#ffffff, #ffffff) fixed;
     color: #213547;
   }
-  button {
-    color: #fff;
+  .form-card {
+    background: rgba(255,255,255,.86);
+    border-color: rgba(0,0,0,.06);
+    box-shadow: 0 12px 36px rgba(10, 20, 40, .12), inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .input {
+    background: #f7f8fb;
+    color: #213547;
+    border-color: rgba(0,0,0,.08);
+  }
+  .nav-link { color: #334155; border-color: rgba(0,0,0,.12); }
+  .nav-link:hover { color: #111827; border-color: rgba(0,0,0,.2); }
+  .btn-primary {
     background: linear-gradient(135deg, #5468ff 0%, #8b5cf6 100%);
-    border-color: rgba(0,0,0,0.06);
     box-shadow: 0 8px 22px rgba(84,104,255,.22);
   }
 }
