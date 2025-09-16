@@ -132,6 +132,7 @@ def plan_trip(data: Dict[str, Any]) -> Dict[str, Any]:
             "polylines": [r1["polyline"], r2["polyline"]],
             "stops": stops,
             "logs": build_logs(duration_minutes),
+            "instructions": (r1.get("instructions") or []) + (r2.get("instructions") or []),  # ← add this
         }
     except Exception as e:
         # Surface a meaningful error to the view; DRF will turn it into 400

@@ -37,5 +37,5 @@ class TripPlanSerializer(serializers.Serializer):
 	polyline = serializers.CharField() # encoded route for map display
 	stops = StopSerializer(many=True)
 	logs = serializers.ListField(child=DayLogBlockSerializer(many=True))
-	instructions = StepInstructionSerializer(many=True)
+	instructions = StepInstructionSerializer(many=True, required=False, default=[])  # ← make optional
 	polylines = serializers.ListField(child=serializers.CharField()) # list of encoded segments (for e.g. fuel stops)
